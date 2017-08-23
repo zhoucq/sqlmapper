@@ -41,6 +41,12 @@ class QueryTest extends FlatSpec {
             assert(p.id != 0)
         }
     }
+
+
+
+//    "sql" should "" in {
+//        sql"""aa"""
+//    }
 }
 
 class Person {

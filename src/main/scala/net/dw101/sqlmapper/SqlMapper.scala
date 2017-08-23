@@ -3,11 +3,20 @@ package net.dw101.sqlmapper
 import java.sql.ResultSet
 import javax.sql.DataSource
 
-import scala.reflect.runtime.{universe => ru}
 import scala.reflect.runtime.universe.typeTag
+import scala.reflect.runtime.{universe => ru}
 
 
 object SqlMapper {
+
+    implicit class SqlContext(val sc: StringContext) extends AnyVal {
+        def sql(args: Any*): SqlExecutor = {
+            new SqlExecutor(sc.raw(args.toSeq: _*))
+        }
+
+        def mapper(args: Any*): SqlExecutor = ???
+    }
+
     def query[E: ru.TypeTag](ds: DataSource, command: CommandDefinition): Iterator[E] = {
 
         val sql = command.commandText
